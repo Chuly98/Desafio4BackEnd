@@ -28,7 +28,7 @@ app.use("/", viewsRouter);
 
 // Inicialización del servidor HTTP y Socket.io
 const httpServer = app.listen(PORT, () => {
-    console.log(`Servidor en ejecución en el puerto ${PORT}`);
+    console.log(`Escuchando puerto ${PORT}`);
 });
 
 const socketServer = new Server(httpServer);

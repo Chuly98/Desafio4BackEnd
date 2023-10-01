@@ -1,0 +1,67 @@
+<div>
+    <h1>Agregar Ubicaciones</h1>
+    <h3>{{error}}</h3>
+    <div>
+        <ul id="productsList">
+            <!-- Aquí se mostrarán los productos -->
+        </ul>
+        <div>
+            <!-- Formulario para agregar un producto -->
+            <form id="addProductForm ">
+                <h3>ADD PRODUCT</h3>
+                <div>
+                    <input type="text" name="newProductTitle" id="newProductTitle"
+                        placeholder="Título del producto" />
+                </div>
+                <div>
+                    <input type="text" name="newProductDescription" id="newProductDescription"
+                        placeholder="Descripción del producto" />
+                </div>
+                <div>
+                    <input type="number" name="newProductPrice" id="newProductPrice"
+                        placeholder="Precio del producto" />
+                </div>
+                <div>
+                    <input type="text"  name="newProductCode" id="newProductCode"
+                        placeholder="Código del producto" />
+                </div>
+                <div>
+                    <input type="number" name="newProductStock" id="newProductStock"
+                        placeholder="Stock del producto" />
+                </div>
+                <div>
+                    <input type="text" name="newProductCategory" id="newProductCategory"
+                        placeholder="Categoría del producto" />
+                </div>
+                <button type="submit" >Add Product</button>
+            </form>
+
+
+            <form id="updateProductForm">
+                <h3>ACTUALIZAR PRECIO</h3>
+                <div>
+                    <input type="number" name="updateProductId" id="updateProductId"
+                        placeholder="ID del producto Actualizado" />
+                </div>
+                <div class="form-group">
+                    <input type="number" name="updateProductPrice" id="updateProductPrice"
+                        placeholder="Actualiza el Precio" />
+                </div>
+                <button type="submit" >Actualizar</button>
+            </form>
+
+            <!-- Formulario para eliminar un producto -->
+            <form id="deleteForm">
+                <h3>BORRAR PRODUCTO</h3>
+                <div>
+                    <input type="number" name="deleteProductId" id="deleteProductId"
+                        placeholder="ID del producto a eliminar" />
+                </div>
+                <button type="submit">Borrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src=""></script>
+<script type="module" src="/js/realTimeProducts.js"></script>

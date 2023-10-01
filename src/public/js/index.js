@@ -35,8 +35,8 @@ function compileProducts() {
 
         cardBody.innerHTML = `
       <h3>${product.title}</h3>
-      <p>ID De la casa: ${product.id}</p>
-      <p>Description de la casa: ${product.description}</p>
+      <p>ID del calzado: ${product.id}</p>
+      <p>Description del producto: ${product.description}</p>
       <p>Price: ${product.price}</p>
       <p>Code: ${product.code}</p>
       <p>Stock disponible: ${product.stock}</p>

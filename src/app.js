@@ -1,4 +1,4 @@
-import { express } from "express";
+import e from "express";
 import { engine } from "express-handlebars";
 import { Server } from "socket.io";
 import productsRouter from "./router/products.router.js";
@@ -7,14 +7,14 @@ import viewsRouter from "./router/views.router.js";
 import { getAllProductsHandler } from "./handlers/products.handlers.js";
 import { __dirname } from "./utils.js"; // Importa __dirname desde utils.js
 
-const app = express();
+const app = e();
 const PORT = process.env.PORT || 8080;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(e.json());
+app.use(e.urlencoded({ extended: true }));
 
 
-app.use(express.static(__dirname + "/public"));
+app.use(e.static(__dirname + "/public"));
 
 // Configuración de Handlebars
 app.engine("handlebars", engine());

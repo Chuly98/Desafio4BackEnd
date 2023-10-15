@@ -1,6 +1,5 @@
 import io from "socket.io-client";
-
-const socketClient = io();
+const socketClient = io("http://localhost:8080");
 let products = [];
 let error = "";
 const productsList = document.getElementById("productsList");
@@ -24,7 +23,7 @@ function validNewProduct(product) {
     );
 }
 
-addProductForm.onsubmit = async (e) => {
+addProductForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     let newProduct = {
         title: document.getElementById("newProductTitle").value,
@@ -39,9 +38,9 @@ addProductForm.onsubmit = async (e) => {
     if (validNewProduct(newProduct)) {
         await addNewProduct(newProduct);
     }
-};
+});
 
-updateProductForm.onsubmit = async (e) => {
+updateProductForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     let updateProductPrice = {
         price: document.getElementById("updateProductPrice").value,
@@ -49,14 +48,14 @@ updateProductForm.onsubmit = async (e) => {
     if (updateProductPrice.price !== 0 && updateProductId.value !== 0) {
         await updateProduct(updateProductId.value, updateProductPrice);
     }
-};
+});
 
-deleteForm.onsubmit = async (e) => {
+deleteForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (deleteProductId.value !== 0) {
         await deleteProduct(deleteProductId.value);
     }
-};
+});
 
 async function addNewProduct(product) {
     try {

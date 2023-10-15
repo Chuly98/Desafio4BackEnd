@@ -1,4 +1,4 @@
-import { productManager } from "../models/ProductManager.js";
+import { productManager } from "../dao/ProductManager.js";
 
 async function getProducts(req, res, next) {
     try {
@@ -18,7 +18,7 @@ async function getProductById(req, res, next) {
         if (product) {
             res.status(200).json({ product });
         } else {
-            res.status(404).json({ message: "Producto no encontrado" });
+            res.status(404).json({ message: "Product not found" });
         }
     } catch (error) {
         next(error);

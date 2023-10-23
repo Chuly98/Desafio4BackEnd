@@ -1,25 +1,72 @@
 import { ProductsManager } from "../dao/ProductsManager.js";
+import { Cart } from "../dao/model/cart.js";
+import { product } from "../dao/model/products.js";
 
-const productsManager = new ProductsManager();
+const productManager = new ProductsManager();
 
-export const getAllProductsFromMongoose = async (req, res) => {
+export const getProductsController = async (req, res) => {
     try {
-        const productos = await productsManager.findAll();
-        res.json(productos);
+        const { limit = 9, page = 1, query, sort } = req.query;
+
+        const options = {
+            limit: parseInt(limit),
+            skip: 0,
+        };
+
+        if (options.limit > 0) {
+            options.skip = (page - 1) * options.limit;
+        }
+
+        const sortOptions = {};
+        if (sort) {
+            sortOptions.precio = sort === 'asc' ? 1 : -1;
+        }
+
+        const filter = query ? { tipo: query } : {};
+        const productos = await product.find(filter)
+            .sort(sortOptions)
+            .skip(options.skip)
+            .limit(options.limit);
+
+        const totalItems = await Product.countDocuments(filter);
+        const totalPages = Math.ceil(totalItems / limit);
+
+        const hasPrevPage = page > 1;
+        const hasNextPage = page < totalPages;
+        const prevPage = hasPrevPage ? page - 1 : null;
+        const nextPage = hasNextPage ? page + 1 : null;
+        const prevLink = hasPrevPage ? `/products?page=${prevPage}` : null;
+        const nextLink = hasNextPage ? `/products?page=${nextPage}` : null;
+
+        const response = {
+            status: 'success',
+            payload: productos,
+            prevPage: prevPage,
+            nextPage: nextPage,
+            prevLink: prevLink,
+            nextLink: nextLink,
+            page: page,
+            hasNextPage: hasNextPage,
+            hasPrevPage: hasPrevPage,
+            totalPages: totalPages,
+        };
+
+        res.json(response);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error al obtener productos.' });
+        res.status(500).json({ status: 'error', error: 'Error en el servidor' });
     }
 };
 
-export const getProductByIdFromMongoose = async (req, res) => {
+export const getProductByIdController = async (req, res) => {
     try {
-        const { id } = req.params;
-        const producto = await productsManager.findById(id);
+        const { pid } = req.params;
+        const producto = await productManager.findById(pid);
+
         if (!producto) {
             res.status(404).json({ error: 'Producto no encontrado.' });
         } else {
-            res.json(producto);
+            res.json({ product: producto });
         }
     } catch (error) {
         console.error(error);
@@ -27,9 +74,9 @@ export const getProductByIdFromMongoose = async (req, res) => {
     }
 };
 
-export const createProductFromMongoose = async (req, res) => {
+export const createProductController = async (req, res) => {
     try {
-        const nuevoProducto = await productsManager.createOne(req.body);
+        const nuevoProducto = await productManager.createOne(req.body);
         res.status(201).json(nuevoProducto);
     } catch (error) {
         console.error(error);
@@ -37,11 +84,11 @@ export const createProductFromMongoose = async (req, res) => {
     }
 };
 
-export const updateProductFromMongoose = async (req, res) => {
+export const updateProductController = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { pid } = req.params;
         const data = req.body;
-        const productoActualizado = await productsManager.updateOne(id, data);
+        const productoActualizado = await productManager.updateOne(pid, data);
         if (!productoActualizado) {
             res.status(404).json({ error: 'Producto no encontrado.' });
         } else {
@@ -53,10 +100,10 @@ export const updateProductFromMongoose = async (req, res) => {
     }
 };
 
-export const deleteProductFromMongoose = async (req, res) => {
+export const deleteProductController = async (req, res) => {
     try {
-        const { id } = req.params;
-        const productoEliminado = await productsManager.deleteOne(id);
+        const { pid } = req.params;
+        const productoEliminado = await productManager.deleteOne(pid);
         if (!productoEliminado) {
             res.status(404).json({ error: 'Producto no encontrado.' });
         } else {
@@ -65,5 +112,20 @@ export const deleteProductFromMongoose = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al eliminar el producto.' });
+    }
+};
+
+export const getProductsInCartController = async (req, res) => {
+    const cartId = req.params.cid;
+
+    try {
+        const cart = await Cart.findById(cartId).populate('products');
+        if (!cart) {
+            return res.status(404).json({ error: 'Carrito no encontrado.' });
+        }
+        res.json(cart.products);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener los productos en el carrito.' });
     }
 };

@@ -45,6 +45,74 @@ class CartManager {
             throw error;
         }
     }
-}
 
+    async addProductToCart(cartId, productId, quantity) {
+        try {
+            const cart = await Cart.findById(cartId);
+            if (!cart) {
+                throw new Error("Carrito no encontrado.");
+            }
+            const existingProduct = cart.products.find(p => p.productId === productId);
+            if (existingProduct) {
+                existingProduct.quantity += quantity;
+            } else {
+                cart.products.push({ productId, quantity });
+            }
+
+            await cart.save();
+
+            return "Producto agregado al carrito con éxito.";
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async deleteProductFromCart(cartId, productId) {
+        try {
+            const cart = await Cart.findById(cartId);
+            if (!cart) {
+                throw new Error("Carrito no encontrado.");
+            }
+
+
+            cart.products = cart.products.filter(p => p.productId !== productId);
+
+            // Guarda el carrito actualizado en la base de datos
+            await cart.save();
+
+            return "Producto eliminado del carrito con éxito.";
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async deleteProductsFromCart(cartId) {
+        try {
+            const cart = await Cart.findById(cartId);
+            if (!cart) {
+                throw new Error("Carrito no encontrado.");
+            }
+            cart.products = [];
+
+            // Guarda el carrito actualizado en la base de datos
+            await cart.save();
+
+            return "Carrito limpiado con éxito.";
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getProductsInCart(cartId) {
+        try {
+            const cart = await Cart.findById(cartId).populate('products');
+            if (!cart) {
+                return [];
+            }
+            return cart.products;
+        } catch (error) {
+            throw error;
+        }
+    }
+}
 export default CartManager;

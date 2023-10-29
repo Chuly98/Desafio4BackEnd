@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MHOA-Calzados</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="/dist/output.css" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="bg-transparent">
+    <nav class="bg-blue-900">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
@@ -18,8 +20,21 @@
                     <span class="ml-2 text-black text-xl font-semibold">MHOA</span>
                 </a>
 
+                <!-- Menú móvil -->
+                <div class="flex items-center sm:hidden">
+                    <button id="mobile-menu-button"
+                        class="text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <span class="sr-only">Abrir menú principal</span>
+                        <svg class="h-6 w-6 transform hover:rotate-90 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+
                 <!-- Menú de navegación -->
-                <div class="hidden sm:flex sm:space-x-4">
+                <div class="hidden sm:flex sm:space-x-4 mt-5">
                     <a href="/"
                         class="text-black hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-300">Inicio</a>
                     <a href="/products"
@@ -27,7 +42,46 @@
                     <a href="/cart"
                         class="text-black hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-300">Carrito</a>
                     <a href="/realtimeProducts"
-                        class="text-black hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-300">actualizar Productos</a>
+                        class="text-black hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-300">actualizar
+                        Productos</a>
+                </div>
+
+                <!-- Iconos notificaction and Profile -->
+                <div class="hidden sm:flex sm:items-center sm:ml-6 ">
+                    <button
+                        class="text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 transition-colors duration-300 mt-5">
+                        <span class="sr-only mt-5">Ver notificaciones</span>
+                        <svg class="h-6 w-6 transform hover:scale-110 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <!-- Perfil del usuario -->
+                    <div class="ml-3 relative ">
+                        <button
+                            class="text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 transition-colors duration-300 mt-5">
+                            <a href="/profile"
+                                class="text-white hover:text-white px-3 py-2 text-sm font-medium flex items-center space-x-2 transition-colors  hover:scale-110 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
+                                    class="h-6 w-auto transform hover:scale-110 transition-transform"
+                                    viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                    <path fill-rule="evenodd"
+                                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                </svg>
+                                <span>Profile</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
+                                    class="w-4 h-4 ml-1 transform rotate-180 hover:scale-110 transition-transform"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M6.354 11.354a.5.5 0 0 0 0-.708L2.707 7.5H12.5a.5.5 0 0 0 0-1H2.707l3.647-3.646a.5.5 0 0 0 0-.708a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708 0z" />
+                                </svg>
+                            </a>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,14 +96,20 @@
                 <a href="/api/carts"
                     class="text-black hover:bg-gray-700 hover:text-white block px-3 py-2 text-sm font-medium transition-colors duration-300">Carrito</a>
                 <a href="/realtimeProducts"
-                    class="text-black hover:bg-gray-700 hover:text-white block px-3 py-2 text-sm font-medium transition-colors duration-300">actualizar Productos</a>
+                    class="text-black hover:bg-gray-700 hover:text-white block px-3 py-2 text-sm font-medium transition-colors duration-300">actualizar
+                    Productos</a>
             </div>
-        </div>
         </div>
     </nav>
 
-    {{{body}}}
 
+
+
+
+
+
+
+    {{{body}}}
 
 
 
@@ -58,6 +118,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/botonMobile.js"></script>
 </body>
 
 </html>

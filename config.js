@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
-const MongoUri = "mongodb+srv://markspk98:Chuly98@micluster0.qq9z2z2.mongodb.net/Ecommerce?retryWrites=true&w=majority"
-
-
+const MongoUri = process.env.MONGO_URI;
+console.log(MongoUri)
 mongoose.connect(MongoUri)
     .then(() => {
         console.log("data base connection")
